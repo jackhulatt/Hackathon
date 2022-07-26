@@ -27,6 +27,18 @@ public class ItemController implements CrudController<Item> {
     }
 
     /**
+     * Reads all items to the logger
+     */
+    @Override
+    public List<Item> readAll() {
+        List<Item> items = itemDAO.readAll();
+        for (Item item : items) {
+            LOGGER.info(item);
+        }
+        return items;
+    }
+
+    /**
      * Creates a customer by taking in user input
      */
     @Override
@@ -43,20 +55,12 @@ public class ItemController implements CrudController<Item> {
     }
 
     @Override
-    public List<Item> readAll() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public Item update() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public int delete() {
-        // TODO Auto-generated method stub
         return 0;
     }
 
