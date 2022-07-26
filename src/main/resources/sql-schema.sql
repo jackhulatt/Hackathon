@@ -27,3 +27,14 @@ CREATE TABLE IF NOT EXISTS `ims`.`orders`(
     PRIMARY KEY (`orders_id`),
 	FOREIGN KEY (`fk_customer_id`) REFERENCES customers(`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `ims`.`item_orders`(
+	`orders_items_id` INT(11) NOT NULL auto_increment,
+    `fk_item_id` INT NOT NULL,
+	`fk_order_id` INT NOT NULL,
+    `quantity` INT NOT NULL,
+    PRIMARY KEY (`orders_items_id`),
+	FOREIGN KEY (`fk_item_id`) REFERENCES items(`item_id`),
+	FOREIGN KEY (`fk_order_id`) REFERENCES orders(`orders_id`)
+
+);
