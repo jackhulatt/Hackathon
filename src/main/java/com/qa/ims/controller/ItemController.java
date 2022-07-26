@@ -50,7 +50,7 @@ public class ItemController implements CrudController<Item> {
         LOGGER.info("Please enter a stock");
         Integer stock = utils.getInteger();
         Item item = itemDAO.create(new Item(itemName, price, stock));
-        LOGGER.info("Item created");
+        LOGGER.info("Item created\n");
         return item;
     }
 
@@ -59,9 +59,16 @@ public class ItemController implements CrudController<Item> {
         return null;
     }
 
+    /**
+     * Deletes an existing customer by the id of the customer
+     * 
+     * @return
+     */
     @Override
     public int delete() {
-        return 0;
+        LOGGER.info("Please enter the id of the item you would like to delete");
+        Long id = utils.getLong();
+        return itemDAO.delete(id);
     }
 
 }

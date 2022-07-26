@@ -92,7 +92,7 @@ public class ItemDAO implements Dao<Item> {
     @Override
     public Item read(Long id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE id = ?");) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE item_id = ?");) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery();) {
                 resultSet.next();
@@ -110,8 +110,22 @@ public class ItemDAO implements Dao<Item> {
         return null;
     }
 
+    /**
+     * Deletes a customer in the database
+     * 
+     * @param id - id of the customer
+     */
     @Override
     public int delete(long id) {
+        try (Connection connection = DBUtils.getInstance().getConnection();
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM items WHERE item_id = ?");) {
+            statement.setLong(1, id);
+            LOGGER.info("item was deleted\n");
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
         return 0;
     }
 
