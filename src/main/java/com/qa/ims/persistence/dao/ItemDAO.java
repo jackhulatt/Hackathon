@@ -72,11 +72,11 @@ public class ItemDAO implements Dao<Item> {
         try (Connection connection = DBUtils.getInstance().getConnection();
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM items");) {
-            List<Item> customers = new ArrayList<>();
+            List<Item> items = new ArrayList<>();
             while (resultSet.next()) {
-                customers.add(modelFromResultSet(resultSet));
+                items.add(modelFromResultSet(resultSet));
             }
-            return customers;
+            return items;
         } catch (SQLException e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
@@ -105,8 +105,28 @@ public class ItemDAO implements Dao<Item> {
         return null;
     }
 
+    /**
+     * Updates a customer in the database
+     * 
+     * @param customer - takes in a customer object, the id field will be used to
+     *                 update that customer in the database
+     * @return
+     */
     @Override
-    public Item update(Item t) {
+    public Item update(Item item) {
+        try (Connection connection = DBUtils.getInstance().getConnection();
+                PreparedStatement statement = connection
+                        .prepareStatement("UPDATE items SET item_name = ?, price = ?, stock = ? WHERE item_id = ?");) {
+            statement.setString(1, item.getItemName());
+            statement.setDouble(2, item.getPrice());
+            statement.setInt(3, item.getStock());
+            statement.setLong(4, item.getItemId());
+            statement.executeUpdate();
+            return read(item.getItemId());
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
         return null;
     }
 
