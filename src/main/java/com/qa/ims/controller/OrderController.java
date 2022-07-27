@@ -55,10 +55,16 @@ public class OrderController implements CrudController<Order> {
         return null;
     }
 
+    /**
+     * Deletes an order and order_items by the id of the order
+     * 
+     * @return
+     */
     @Override
     public int delete() {
-        // TODO Auto-generated method stub
-        return 0;
+        LOGGER.info("Please enter the id of the order you would like to delete");
+        Long id = utils.getLong();
+        return orderDAO.delete(id);
     }
 
 }
