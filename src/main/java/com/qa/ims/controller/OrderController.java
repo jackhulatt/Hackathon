@@ -45,13 +45,15 @@ public class OrderController implements CrudController<Order> {
 
     @Override
     public List<Order> readAll() {
-        // TODO Auto-generated method stub
-        return null;
+        List<Order> orders = orderDAO.readAll();
+        for (Order order : orders) {
+            LOGGER.info(order);
+        }
+        return orders;
     }
 
     @Override
     public Order update() {
-        // TODO Auto-generated method stub
         return null;
     }
 
