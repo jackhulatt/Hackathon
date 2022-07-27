@@ -23,7 +23,7 @@ public class OrderDAO implements Dao<Order> {
         Long orderId = resultSet.getLong("orders_id");
         Float totalAmount = resultSet.getFloat("total_amount");
         Long customerId = resultSet.getLong("fk_customer_id");
-        int quantity = resultSet.getInt("quantity");
+        int quantity = resultSet.getInt("item_quantity");
         return new Order(orderId, totalAmount, customerId, quantity);
     }
 
@@ -50,7 +50,7 @@ public class OrderDAO implements Dao<Order> {
         try (Connection connection = DBUtils.getInstance().getConnection();
                 PreparedStatement statement = connection
                         .prepareStatement(
-                                "INSERT INTO orders(fk_customer_id, total_amount, quantity) VALUES (?, ?, ?)");) {
+                                "INSERT INTO orders(fk_customer_id, total_amount, item_quantity) VALUES (?, ?, ?)");) {
             statement.setLong(1, order.getCustomerId());
             statement.setFloat(2, order.getTotalAmount());
             statement.setInt(3, order.getQuantity());
@@ -76,19 +76,50 @@ public class OrderDAO implements Dao<Order> {
 
     @Override
     public List<Order> readAll() {
-        // TODO Auto-generated method stub
-        return null;
+        List<Order> orders = new ArrayList<>();
+
+        try (Connection connection = DBUtils.getInstance().getConnection();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM orders o" + " join item_orders oi"
+                        + " on o.orders_id=oi.fk_order_id" + " join items i" + " on i.item_id=fk_item_id");) {
+            while (resultSet.next()) {
+                orders.add(modelFromResultSet(resultSet));
+
+                LOGGER.info("Item ID: " + resultSet.getLong("i.item_id") + " ------ Item Name: "
+                        + resultSet.getString("i.item_name") + " ------ Price: " + resultSet.getDouble("i.price")
+                        + " ------ Order ID: " + resultSet.getLong("o.orders_id") + " ------ Total Amount: "
+                        + resultSet.getFloat("o.total_amount") + " ------ Quantity "
+                        + resultSet.getInt("o.item_quantity")
+                        + " ------ item_order ID: " + resultSet.getLong("oi.fk_order_id"));
+            }
+        } catch (SQLException e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
+        return new ArrayList<>();
+
     }
 
     @Override
     public Order read(Long id) {
-        // TODO Auto-generated method stub
+        try (Connection connection = DBUtils.getInstance().getConnection();
+                PreparedStatement statement = connection
+                        .prepareStatement("SELECT * FROM orders o" + " join item_orders oi"
+                                + " on o.orders_id=oi.fk_order_id" + " join items i" + " on i.item_id=fk_item_id");) {
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery();) {
+                resultSet.next();
+                return modelFromResultSet(resultSet);
+            }
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
         return null;
     }
 
     @Override
     public Order update(Order t) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -96,17 +127,16 @@ public class OrderDAO implements Dao<Order> {
     public int delete(long id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
                 PreparedStatement statement = connection
-                        .prepareStatement("DELETE FROM orders WHERE orders_id = ?");) {
+                        .prepareStatement("DELETE FROM item_orders WHERE fk_order_id = ?");) {
             statement.setLong(1, id);
             statement.executeUpdate();
-            // return statement.executeUpdate();
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
         }
         try (Connection connection = DBUtils.getInstance().getConnection();
                 PreparedStatement statement = connection
-                        .prepareStatement("DELETE FROM item_orders WHERE fk_order_id = ?");) {
+                        .prepareStatement("DELETE FROM orders WHERE orders_id = ?");) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (Exception e) {
