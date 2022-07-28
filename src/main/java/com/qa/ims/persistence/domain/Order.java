@@ -1,5 +1,6 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Order {
@@ -8,12 +9,32 @@ public class Order {
     private long customerId;
     private int quantity;
     private long itemId;
+    private List<Item> items;
 
     public Order() {
 
     }
 
-    public Order(long orderId, float totalAmount, long customerId, int quantity, long itemId) {
+    public Order(long customerId, Long itemId, int quantity) {
+        this.customerId = customerId;
+        this.quantity = quantity;
+        this.itemId = itemId;
+
+    }
+
+    public Order(long orderId, long customerId) {
+        this.orderId = orderId;
+        this.customerId = customerId;
+
+    }
+
+    public Order(int quantity, long orderId, Long itemId) {
+        this.orderId = orderId;
+        this.quantity = quantity;
+        this.itemId = itemId;
+    }
+
+    public Order(long orderId, float totalAmount, long customerId, int quantity, Long itemId) {
         this.orderId = orderId;
         this.totalAmount = totalAmount;
         this.customerId = customerId;
@@ -21,17 +42,10 @@ public class Order {
         this.itemId = itemId;
     }
 
-    public Order(long customerId, int quantity, long itemId) {
-        this.customerId = customerId;
-        this.quantity = quantity;
-        this.itemId = itemId;
-    }
-
-    public Order(long orderId, float totalAmount, long customerId, int quantity) {
+    public Order(long orderId, long customerId, List<Item> items) {
         this.orderId = orderId;
-        this.totalAmount = totalAmount;
         this.customerId = customerId;
-        this.quantity = quantity;
+        this.items = items;
     }
 
     public long getOrderId() {
@@ -74,6 +88,14 @@ public class Order {
         this.itemId = itemId;
     }
 
+    public List<Item> getItems() {
+        return this.items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -83,12 +105,12 @@ public class Order {
         }
         Order order = (Order) o;
         return orderId == order.orderId && totalAmount == order.totalAmount && customerId == order.customerId
-                && Objects.equals(quantity, order.quantity) && itemId == order.itemId;
+                && quantity == order.quantity && itemId == order.itemId && Objects.equals(items, order.items);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, totalAmount, customerId, quantity, itemId);
+        return Objects.hash(orderId, totalAmount, customerId, quantity, itemId, items);
     }
 
     @Override
@@ -99,6 +121,7 @@ public class Order {
                 ", customerId='" + getCustomerId() + "'" +
                 ", quantity='" + getQuantity() + "'" +
                 ", itemId='" + getItemId() + "'" +
+                ", items='" + getItems() + "'" +
                 "}";
     }
 
