@@ -65,7 +65,8 @@ public class OrderController implements CrudController<Order> {
     }
 
     /**
-     * Deletes an order and order_items by the id of the order
+     * Deletes an order and order_items by the id of the order And also option to
+     * delete an item from an existing order by id
      * 
      * @return
      */
