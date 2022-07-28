@@ -15,6 +15,10 @@ public class Order {
 
     }
 
+    public Order(float totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
     public Order(long customerId, Long itemId, int quantity) {
         this.customerId = customerId;
         this.quantity = quantity;

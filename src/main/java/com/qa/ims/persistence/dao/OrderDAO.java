@@ -73,27 +73,53 @@ public class OrderDAO implements Dao<Order> {
         return null;
     }
 
+    public Order total(ResultSet resultSet) throws SQLException {
+        float totalAmount = resultSet.getFloat("Total_amount");
+        return new Order(totalAmount);
+    }
+
     @Override
     public List<Order> readAll() {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DBUtils.getInstance().getConnection();
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM orders o" + " join item_orders oi"
-                        + " on o.orders_id=oi.fk_order_id" + " join items i" + " on i.item_id=fk_item_id");) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM orders o"
+                        + " join item_orders oi"
+                        + " on o.orders_id=oi.fk_order_id"
+                        + " join items i"
+                        + " on i.item_id=fk_item_id"
+                        + " join customers c"
+                        + " on o.fk_customer_id");) {
             while (resultSet.next()) {
                 orders.add(modelFromResultSet(resultSet));
-                LOGGER.info("Order ID: " + resultSet.getLong("o.orders_id") + "------ Item ID: "
-                        + resultSet.getLong("i.item_id") + " ------ Item Name: "
-                        + resultSet.getString("i.item_name") + " ------ Price: "
-                        + resultSet.getDouble("i.price") + " ------ Quantity "
+                LOGGER.info("\n----------- " + "Order ID: " + resultSet.getLong("o.orders_id") + " -----------\n"
+                        + " | Customer name: "
+                        + resultSet.getString("c.first_name") + " " + resultSet.getString("c.surname")
+                        + " ----- Item ID: "
+                        + resultSet.getLong("i.item_id") + " ----- Item Name: "
+                        + resultSet.getString("i.item_name") + " ----- Price: "
+                        + resultSet.getDouble("i.price") + " ----- Quantity: "
                         + resultSet.getInt("oi.item_quantity")
-                        + " ------ item_order ID: " + resultSet.getLong("oi.fk_order_id"));
+                        + " ----- item_order ID: " + resultSet.getLong("oi.fk_order_id") + " |");
             }
         } catch (SQLException e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
         }
 
+        try (Connection connection = DBUtils.getInstance().getConnection();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(
+                        "SELECT items.price*item_orders.item_quantity as Total_Amount " +
+                                "FROM items,item_orders " +
+                                "WHERE items.item_id=item_orders.fk_item_id;");) {
+            while (resultSet.next()) {
+                orders.add(total(resultSet));
+                LOGGER.info("Total cost of order: " + resultSet.getFloat("Total_amount"));
+            }
+        } catch (SQLException e) {
+            LOGGER.info("test");
+        }
         return new ArrayList<>();
     }
 
@@ -117,8 +143,7 @@ public class OrderDAO implements Dao<Order> {
 
     @Override
     public Order update(Order t) {
-        // option for add or delete item to order
-        //
+
         return null;
     }
 
