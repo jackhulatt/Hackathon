@@ -143,12 +143,25 @@ public class OrderDAO implements Dao<Order> {
 
     @Override
     public Order update(Order t) {
-
+        try (Connection connection = DBUtils.getInstance().getConnection();
+                PreparedStatement statement2 = connection
+                        .prepareStatement(
+                                "INSERT INTO item_orders(fk_item_id, fk_order_id, item_quantity) VALUES (?, ?, ?)");) {
+            statement2.setLong(1, t.getItemId());
+            statement2.setLong(2, t.getOrderId());
+            statement2.setInt(3, t.getQuantity());
+            statement2.executeUpdate();
+            return readLatest();
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
         return null;
     }
 
     @Override
     public int delete(long id) {
+
         try (Connection connection = DBUtils.getInstance().getConnection();
                 PreparedStatement statement = connection
                         .prepareStatement("DELETE FROM item_orders WHERE fk_order_id = ?");) {
@@ -162,6 +175,22 @@ public class OrderDAO implements Dao<Order> {
                 PreparedStatement statement = connection
                         .prepareStatement("DELETE FROM orders WHERE orders_id = ?");) {
             statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
+
+        return 0;
+    }
+
+    public int itemDelete(Long orderItem, Long itemDelete) {
+        try (Connection connection = DBUtils.getInstance().getConnection();
+                PreparedStatement statement = connection
+                        .prepareStatement(
+                                "DELETE FROM item_orders WHERE fk_order_id = ? AND fk_item_id = ? LIMIT 1");) {
+            statement.setLong(1, orderItem);
+            statement.setLong(2, itemDelete);
             statement.executeUpdate();
         } catch (Exception e) {
             LOGGER.debug(e);
