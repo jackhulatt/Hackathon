@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
 
@@ -21,10 +22,9 @@ public class OrderDAO implements Dao<Order> {
     @Override
     public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
         Long orderId = resultSet.getLong("orders_id");
-        Float totalAmount = resultSet.getFloat("total_amount");
         Long customerId = resultSet.getLong("fk_customer_id");
-        int quantity = resultSet.getInt("item_quantity");
-        return new Order(orderId, totalAmount, customerId, quantity);
+        // int quantity = resultSet.getInt("item_quantity");
+        return new Order(orderId, customerId);
     }
 
     public Order readLatest() {
@@ -50,10 +50,8 @@ public class OrderDAO implements Dao<Order> {
         try (Connection connection = DBUtils.getInstance().getConnection();
                 PreparedStatement statement = connection
                         .prepareStatement(
-                                "INSERT INTO orders(fk_customer_id, total_amount, item_quantity) VALUES (?, ?, ?)");) {
+                                "INSERT INTO orders(fk_customer_id) VALUES (?)");) {
             statement.setLong(1, order.getCustomerId());
-            statement.setFloat(2, order.getTotalAmount());
-            statement.setInt(3, order.getQuantity());
             statement.executeUpdate();
         } catch (Exception e) {
             LOGGER.debug(e);
@@ -62,9 +60,10 @@ public class OrderDAO implements Dao<Order> {
         try (Connection connection = DBUtils.getInstance().getConnection();
                 PreparedStatement statement2 = connection
                         .prepareStatement(
-                                "INSERT INTO item_orders(fk_item_id, fk_order_id) VALUES (?, ?)");) {
+                                "INSERT INTO item_orders(fk_item_id, fk_order_id, item_quantity) VALUES (?, ?, ?)");) {
             statement2.setLong(1, order.getItemId());
             statement2.setLong(2, readLatest().getOrderId());
+            statement2.setInt(3, order.getQuantity());
             statement2.executeUpdate();
             return readLatest();
         } catch (Exception e) {
@@ -77,27 +76,25 @@ public class OrderDAO implements Dao<Order> {
     @Override
     public List<Order> readAll() {
         List<Order> orders = new ArrayList<>();
-
         try (Connection connection = DBUtils.getInstance().getConnection();
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM orders o" + " join item_orders oi"
                         + " on o.orders_id=oi.fk_order_id" + " join items i" + " on i.item_id=fk_item_id");) {
             while (resultSet.next()) {
                 orders.add(modelFromResultSet(resultSet));
-
-                LOGGER.info("Item ID: " + resultSet.getLong("i.item_id") + " ------ Item Name: "
-                        + resultSet.getString("i.item_name") + " ------ Price: " + resultSet.getDouble("i.price")
-                        + " ------ Order ID: " + resultSet.getLong("o.orders_id") + " ------ Total Amount: "
-                        + resultSet.getFloat("o.total_amount") + " ------ Quantity "
-                        + resultSet.getInt("o.item_quantity")
+                LOGGER.info("Order ID: " + resultSet.getLong("o.orders_id") + "------ Item ID: "
+                        + resultSet.getLong("i.item_id") + " ------ Item Name: "
+                        + resultSet.getString("i.item_name") + " ------ Price: "
+                        + resultSet.getDouble("i.price") + " ------ Quantity "
+                        + resultSet.getInt("oi.item_quantity")
                         + " ------ item_order ID: " + resultSet.getLong("oi.fk_order_id"));
             }
         } catch (SQLException e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
         }
-        return new ArrayList<>();
 
+        return new ArrayList<>();
     }
 
     @Override
@@ -120,6 +117,8 @@ public class OrderDAO implements Dao<Order> {
 
     @Override
     public Order update(Order t) {
+        // option for add or delete item to order
+        //
         return null;
     }
 

@@ -22,19 +22,14 @@ CREATE TABLE IF NOT EXISTS `ims`.`items` (
 CREATE TABLE IF NOT EXISTS `ims`.`orders`(
 	`orders_id` INT(11) NOT NULL auto_increment,
     `fk_customer_id` INT NOT NULL,
-    `total_amount` DECIMAL NOT NULL,
-    `date_order_was_made` datetime,
     PRIMARY KEY (`orders_id`),
 	FOREIGN KEY (`fk_customer_id`) REFERENCES customers(`id`)
 );
-
 CREATE TABLE IF NOT EXISTS `ims`.`item_orders`(
-	`orders_items_id` INT(11) NOT NULL auto_increment,
     `fk_item_id` INT NOT NULL,
 	`fk_order_id` INT NOT NULL,
-    `quantity` INT NOT NULL,
-    PRIMARY KEY (`orders_items_id`),
+    `item_quantity` INT NOT NULL,
+    PRIMARY KEY (`fk_item_id`,`fk_order_id`),
 	FOREIGN KEY (`fk_item_id`) REFERENCES items(`item_id`),
 	FOREIGN KEY (`fk_order_id`) REFERENCES orders(`orders_id`)
-
 );
