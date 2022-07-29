@@ -66,4 +66,18 @@ public class Utils {
 		return integerInput;
 	}
 
+	public Float getFloat() {
+		String input = null;
+		Float floatInput = null;
+		do {
+			try {
+				input = getString();
+				floatInput = Float.parseFloat(input);
+			} catch (NumberFormatException nfe) {
+				LOGGER.info("Error - Please enter a number");
+			}
+		} while (floatInput == null);
+		return floatInput;
+	}
+
 }

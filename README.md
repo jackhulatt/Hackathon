@@ -1,41 +1,36 @@
-Coverage: 34%
-# Project Title
+Coverage:
+# Inventory Management System(IMS) Project 
+[Jira](https://seanpalla.atlassian.net/jira/software/projects/IMS/boards/6/backlog)
 
-One Paragraph of project description goes here
-
+This is a project in which i have created a Inventory management system to Create, Update, Read and delete orders,items and customers from a database.
+This project is part of my QA Academy training in which i will demonstrate my skill i have acquired during this journey. This system works with MYSQL and Java.
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+To get this project up and running you will need to clone down this IMS repository Master branch to your local machine and open it up in an IDE.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+To get this project up and running you are going to need to have a few things already installed i will list these bellow.
 
-```
-Give examples
-```
+- Java 11 and newer JDK (Was made using Java 17)
+- Maven (Maven was used as the build tools for this project)
+- IDE to continue development or run existing project (e.g intellij, eclipse, vscode)``
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Bellow you will find a step by step guide on how to get an java environment set up
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+- Install a JDK from -Recommend Java 17-  [Oracle](https://www.oracle.com/java/technologies/downloads/)
+- Setup environment variables in windows 'JAVA_HOME' and set up the PATH file to include %JAVA_HOME%/bin
+- Install an IDE -Recommend VSCode but all are good-  [Eclipse](https://www.eclipse.org/ide/)
+- Install a build tool - Recommend Maven -  [Maven](https://maven.apache.org/download.cgi)
+- Setup maven environment variables 'MAVEN_HOME' and setup the PATH file to include %MAVEN_HOME%/bin
+- Download and install Git [Git](https://gitforwindows.org/)
 
 ## Running the tests
 
-Explain how to run the automated tests for this system. Break down into which tests and what they do
+To run both the unit test and the integration tests in eclipse you can either run them by right-clicking on srs folder and selecting run as Junit test,
+or you can click on the down arrow next to the run symbol on the task bar and again select run as Junit test.
 
 ### Unit Tests 
 
@@ -62,7 +57,7 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+to deploy you can create a release on github
 
 ## Built With
 
