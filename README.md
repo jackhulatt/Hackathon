@@ -1,5 +1,6 @@
-Coverage: 
+Coverage:
 # Inventory Management System(IMS) Project 
+[Jira](https://seanpalla.atlassian.net/jira/software/projects/IMS/boards/6/backlog)
 
 This is a project in which i have created a Inventory management system to Create, Update, Read and delete orders,items and customers from a database.
 This project is part of my QA Academy training in which i will demonstrate my skill i have acquired during this journey. This system works with MYSQL and Java.
@@ -19,12 +20,12 @@ To get this project up and running you are going to need to have a few things al
 
 Bellow you will find a step by step guide on how to get an java environment set up
 
-- Install a JDK from -Recommend Java 17- * [Oracle](https://www.oracle.com/java/technologies/downloads/)
+- Install a JDK from -Recommend Java 17-  [Oracle](https://www.oracle.com/java/technologies/downloads/)
 - Setup environment variables in windows 'JAVA_HOME' and set up the PATH file to include %JAVA_HOME%/bin
-- Install an IDE -Recommend VSCode but all are good- * [Eclipse](https://www.eclipse.org/ide/)
-- Install a build tool - Recommend Maven - * [Maven](https://maven.apache.org/download.cgi)
+- Install an IDE -Recommend VSCode but all are good-  [Eclipse](https://www.eclipse.org/ide/)
+- Install a build tool - Recommend Maven -  [Maven](https://maven.apache.org/download.cgi)
 - Setup maven environment variables 'MAVEN_HOME' and setup the PATH file to include %MAVEN_HOME%/bin
-- Download and install Git *[Git](https://gitforwindows.org/)
+- Download and install Git [Git](https://gitforwindows.org/)
 
 ## Running the tests
 
