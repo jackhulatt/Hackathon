@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS `ims`.`items` (
     `stock` INT,
     PRIMARY KEY (`item_id`)
 );
-
 CREATE TABLE IF NOT EXISTS `ims`.`orders`(
 	`orders_id` INT(11) NOT NULL auto_increment,
     `fk_customer_id` INT NOT NULL,
@@ -26,10 +25,11 @@ CREATE TABLE IF NOT EXISTS `ims`.`orders`(
 	FOREIGN KEY (`fk_customer_id`) REFERENCES customers(`id`)
 );
 CREATE TABLE IF NOT EXISTS `ims`.`item_orders`(
+	`item_orders_id` INT(11) NOT NULL auto_increment,
     `fk_item_id` INT NOT NULL,
 	`fk_order_id` INT NOT NULL,
     `item_quantity` INT NOT NULL,
-    PRIMARY KEY (`fk_item_id`,`fk_order_id`),
+    PRIMARY KEY (`item_orders_id`),
 	FOREIGN KEY (`fk_item_id`) REFERENCES items(`item_id`),
 	FOREIGN KEY (`fk_order_id`) REFERENCES orders(`orders_id`)
 );

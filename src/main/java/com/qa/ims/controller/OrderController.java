@@ -91,6 +91,7 @@ public class OrderController implements CrudController<Order> {
                 break;
             default:
                 LOGGER.info("Incorrect input, please try again");
+                return 0;
         }
         return 0;
 

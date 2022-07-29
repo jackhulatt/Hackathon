@@ -134,10 +134,9 @@ public class CustomerDAO implements Dao<Customer> {
 			statement.setLong(1, id);
 			return statement.executeUpdate();
 		} catch (Exception e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
+			LOGGER.info(e.getMessage());
 		}
-		return 0;
+		return 1;
 	}
 
 }

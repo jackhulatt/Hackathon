@@ -54,6 +54,9 @@ public class CustomerDAOTest {
 
 	@Test
 	public void testDelete() {
-		assertEquals(1, DAO.delete(1));
+		Customer testCustomer = new Customer(2L, "sean", "palla");
+		DAO.create(testCustomer);
+		assertEquals(1, DAO.delete(2));
+
 	}
 }
