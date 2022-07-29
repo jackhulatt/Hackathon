@@ -82,7 +82,7 @@ to deploy you can create a release on github
 We use [SemVer](http://semver.org/) for versioning.
 
 ## Authors
-
+* **Sean Palla** - *Main project work* - [Git](https://github.com/SeanPalla)
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
 
 ## License
