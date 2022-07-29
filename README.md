@@ -1,6 +1,7 @@
 Coverage:
 # Inventory Management System(IMS) Project 
-[Jira](https://seanpalla.atlassian.net/jira/software/projects/IMS/boards/6/backlog)
+
+Here is a link to my jira page - [Jira](https://seanpalla.atlassian.net/jira/software/projects/IMS/boards/6/backlog)
 
 This is a project in which i have created a Inventory management system to Create, Update, Read and delete orders,items and customers from a database.
 This project is part of my QA Academy training in which i will demonstrate my skill i have acquired during this journey. This system works with MYSQL and Java.
@@ -34,26 +35,39 @@ or you can click on the down arrow next to the run symbol on the task bar and ag
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
+This is a test that tests the functionality of the methods i created in the program.
+Bellow is an example of testing the read all function.
+To run these tests you can either right click the main folder and select run as- then click JUnit test
 
 ```
-Give an example
+   @Test
+    public void testReadAll() {
+        List<Item> expected = new ArrayList<>();
+        expected.add(new Item(1L, "bat", 3.5, 1));
+        assertEquals(expected, DAO.readAll());
+    }
 ```
 
 ### Integration Tests 
-Explain what these tests test, why and how to run them
-
+I have made integration tests using Mockito,
+this allows you to test methods thats are more complex and integrate more functions.
 ```
-Give an example
+    @Test
+    public void testReadAll() {
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("cat", 3.50, 10));
+
+        Mockito.when(dao.readAll()).thenReturn(items);
+
+        assertEquals(items, controller.readAll());
+
+        Mockito.verify(dao, Mockito.times(1)).readAll();
+    }
 ```
 
 ### And coding style tests
 
 Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
