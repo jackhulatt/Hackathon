@@ -1,8 +1,5 @@
 package com.qa.qommon;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.qa.qommon.controller.Action;
 import com.qa.qommon.controller.CrudController;
 import com.qa.qommon.controller.DriverController;
@@ -12,6 +9,8 @@ import com.qa.qommon.persistence.dao.OrderDAO;
 import com.qa.qommon.persistence.domain.Domain;
 import com.qa.qommon.utils.DBUtils;
 import com.qa.qommon.utils.Utils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class IMS {
 

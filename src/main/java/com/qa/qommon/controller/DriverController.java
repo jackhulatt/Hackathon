@@ -1,13 +1,12 @@
 package com.qa.qommon.controller;
 
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.qa.qommon.persistence.dao.DriverDAO;
 import com.qa.qommon.persistence.domain.Driver;
 import com.qa.qommon.utils.Utils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 /**
  * Takes in customer details for CRUD functionality

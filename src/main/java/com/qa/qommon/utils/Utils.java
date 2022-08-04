@@ -1,9 +1,9 @@
 package com.qa.qommon.utils;
 
-import java.util.Scanner;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Scanner;
 
 public class Utils {
 

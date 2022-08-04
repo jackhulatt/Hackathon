@@ -1,9 +1,8 @@
 package com.qa.qommon.persistence.domain;
 
+import com.qa.qommon.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.qa.qommon.utils.Utils;
 
 public enum Domain {
 
