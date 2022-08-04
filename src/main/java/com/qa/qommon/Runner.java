@@ -8,9 +8,9 @@ public class Runner {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static void main(String[] args) {
-		IMS ims = new IMS();
-		ims.imsSystem();
-		LOGGER.info("SO LONG!");
+		App app = new App();  // initialise App class
+		app.qommonSystem(); // start the qommon System interface
+		//LOGGER.info("SO LONG!");
 	}
 
 }

@@ -12,6 +12,7 @@ public class gui_login implements ActionListener {
     private static JButton button;
     private static JLabel success;
     private static JLabel fail;
+    
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();

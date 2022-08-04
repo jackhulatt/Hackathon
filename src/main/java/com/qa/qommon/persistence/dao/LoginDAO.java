@@ -31,7 +31,7 @@ public class LoginDAO implements Dao<Login> {
 	public List<Login> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM administrator");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM administrator Where username =? AND password =?");) {
 			List<Login> logins = new ArrayList<>();
 			while (resultSet.next()) {
 				logins.add(modelFromResultSet(resultSet));
