@@ -1,9 +1,9 @@
-package com.qa.ims.controller;
+package com.qa.qommon.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.utils.Utils;
+import com.qa.qommon.utils.Utils;
 
 /**
  * Action is a collection of commands which are used to determine the type of

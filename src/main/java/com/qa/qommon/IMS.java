@@ -1,39 +1,37 @@
-package com.qa.ims;
+package com.qa.qommon;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.controller.Action;
-import com.qa.ims.controller.CrudController;
-import com.qa.ims.controller.DriverController;
-
-import com.qa.ims.controller.OrderController;
-import com.qa.ims.persistence.dao.DriverDAO;
-
-import com.qa.ims.persistence.dao.OrderDAO;
-import com.qa.ims.persistence.domain.Domain;
-import com.qa.ims.utils.DBUtils;
-import com.qa.ims.utils.Utils;
+import com.qa.qommon.controller.Action;
+import com.qa.qommon.controller.CrudController;
+import com.qa.qommon.controller.DriverController;
+import com.qa.qommon.controller.OrderController;
+import com.qa.qommon.persistence.dao.DriverDAO;
+import com.qa.qommon.persistence.dao.OrderDAO;
+import com.qa.qommon.persistence.domain.Domain;
+import com.qa.qommon.utils.DBUtils;
+import com.qa.qommon.utils.Utils;
 
 public class IMS {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	private final DriverController customers;
+	private final DriverController drivers;
 	
 	private final OrderController orders;
 	private final Utils utils;
 
 	public IMS() {
 		this.utils = new Utils();
-		final DriverDAO custDAO = new DriverDAO();
-		this.customers = new DriverController(custDAO, utils);
+		final DriverDAO drivDAO = new DriverDAO();
+		this.drivers = new DriverController(drivDAO, utils);
 		final OrderDAO ordDAO = new OrderDAO();
 		this.orders = new OrderController(ordDAO, utils);
 	}
 
 	public void imsSystem() {
-		LOGGER.info("Welcome to the Inventory Management System!");
+		LOGGER.info("Welcome to the QOMMON Management System!");
 		DBUtils.connect();
 
 		Domain domain = null;
@@ -54,11 +52,10 @@ public class IMS {
 
 			CrudController<?> active = null;
 			switch (domain) {
-				case CUSTOMER:
-					active = this.customers;
+				case DRIVER:
+					active = this.drivers;
 					break;
-				case ITEM:
-					
+				case ROUTE:
 					break;
 				case ORDER:
 					active = this.orders;

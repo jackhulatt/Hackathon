@@ -1,13 +1,13 @@
-package com.qa.ims.controller;
+package com.qa.qommon.controller;
 
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.dao.OrderDAO;
-import com.qa.ims.persistence.domain.Order;
-import com.qa.ims.utils.Utils;
+import com.qa.qommon.persistence.dao.OrderDAO;
+import com.qa.qommon.persistence.domain.Order;
+import com.qa.qommon.utils.Utils;
 
 /**
  * Takes in customer details for CRUD functionality
