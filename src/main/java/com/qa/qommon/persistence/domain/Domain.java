@@ -1,13 +1,13 @@
-package com.qa.ims.persistence.domain;
+package com.qa.qommon.persistence.domain;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.utils.Utils;
+import com.qa.qommon.utils.Utils;
 
 public enum Domain {
 
-	CUSTOMER("Information about customers"), ITEM("Individual Items"), ORDER("Purchases of items"),
+	DRIVER("Information about driver's"), ROUTE("Individual routes"), ORDER("Purchases of items"),
 	STOP("To close the application");
 
 	public static final Logger LOGGER = LogManager.getLogger();

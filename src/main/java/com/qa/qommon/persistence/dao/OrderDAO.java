@@ -1,4 +1,4 @@
-package com.qa.ims.persistence.dao;
+package com.qa.qommon.persistence.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,8 +11,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Order;
-import com.qa.ims.utils.DBUtils;
+import com.qa.qommon.persistence.domain.Order;
+import com.qa.qommon.utils.DBUtils;
 
 public class OrderDAO implements Dao<Order> {
 

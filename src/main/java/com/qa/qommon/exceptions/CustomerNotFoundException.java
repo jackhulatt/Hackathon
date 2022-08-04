@@ -1,4 +1,4 @@
-package com.qa.ims.exceptions;
+package com.qa.qommon.exceptions;
 
 public class CustomerNotFoundException extends RuntimeException {
 

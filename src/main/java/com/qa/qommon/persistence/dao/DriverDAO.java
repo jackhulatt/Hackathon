@@ -1,4 +1,4 @@
-package com.qa.ims.persistence.dao;
+package com.qa.qommon.persistence.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,8 +11,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Driver;
-import com.qa.ims.utils.DBUtils;
+import com.qa.qommon.persistence.domain.Driver;
+import com.qa.qommon.utils.DBUtils;
 
 public class DriverDAO implements Dao<Driver> {
 
@@ -20,10 +20,11 @@ public class DriverDAO implements Dao<Driver> {
 
 	@Override
 	public Driver modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long id = resultSet.getLong("id");
+		Long id = resultSet.getLong("driver_id");
 		String firstName = resultSet.getString("first_name");
 		String surname = resultSet.getString("surname");
-		return new Driver(id, firstName, surname);
+		String vehicleReg = resultSet.getString("vehicle_reg");
+		return new Driver(id, firstName, surname, vehicleReg);
 	}
 
 	/**
@@ -35,12 +36,12 @@ public class DriverDAO implements Dao<Driver> {
 	public List<Driver> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM customers");) {
-			List<Driver> customers = new ArrayList<>();
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM driver");) {
+			List<Driver> drivers = new ArrayList<>();
 			while (resultSet.next()) {
-				customers.add(modelFromResultSet(resultSet));
+				drivers.add(modelFromResultSet(resultSet));
 			}
-			return customers;
+			return drivers;
 		} catch (SQLException e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -51,7 +52,7 @@ public class DriverDAO implements Dao<Driver> {
 	public Driver readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM customers ORDER BY id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM driver ORDER BY driver_id DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -67,12 +68,13 @@ public class DriverDAO implements Dao<Driver> {
 	 * @param customer - takes in a customer object. id will be ignored
 	 */
 	@Override
-	public Driver create(Driver customer) {
+	public Driver create(Driver driver) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO customers(first_name, surname) VALUES (?, ?)");) {
-			statement.setString(1, customer.getFirstName());
-			statement.setString(2, customer.getSurname());
+						.prepareStatement("INSERT INTO driver(first_name, surname, vehicle_reg) VALUES (?, ?, ?)");) {
+			statement.setString(1, driver.getFirstName());
+			statement.setString(2, driver.getSurname());
+			statement.setString(3, driver.getVehicleReg());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -85,7 +87,7 @@ public class DriverDAO implements Dao<Driver> {
 	@Override
 	public Driver read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM customers WHERE id = ?");) {
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM driver WHERE driver_id = ?");) {
 			statement.setLong(1, id);
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
@@ -106,15 +108,15 @@ public class DriverDAO implements Dao<Driver> {
 	 * @return
 	 */
 	@Override
-	public Driver update(Driver customer) {
+	public Driver update(Driver driver) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE customers SET first_name = ?, surname = ? WHERE id = ?");) {
-			statement.setString(1, customer.getFirstName());
-			statement.setString(2, customer.getSurname());
-			statement.setLong(3, customer.getId());
+						.prepareStatement("UPDATE driver SET first_name = ?, surname = ? WHERE driver_id = ?");) {
+			statement.setString(1, driver.getFirstName());
+			statement.setString(2, driver.getSurname());
+			statement.setLong(3, driver.getId());
 			statement.executeUpdate();
-			return read(customer.getId());
+			return read(driver.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -130,7 +132,7 @@ public class DriverDAO implements Dao<Driver> {
 	@Override
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("DELETE FROM customers WHERE id = ?");) {
+				PreparedStatement statement = connection.prepareStatement("DELETE FROM driver WHERE driver_id = ?");) {
 			statement.setLong(1, id);
 			return statement.executeUpdate();
 		} catch (Exception e) {
