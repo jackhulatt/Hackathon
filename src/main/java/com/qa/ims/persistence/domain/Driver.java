@@ -2,18 +2,18 @@ package com.qa.ims.persistence.domain;
 
 import java.util.Objects;
 
-public class Customer {
+public class Driver {
 
 	private Long id;
 	private String firstName;
 	private String surname;
 
-	public Customer(String firstName, String surname) {
+	public Driver(String firstName, String surname) {
 		this.setFirstName(firstName);
 		this.setSurname(surname);
 	}
 
-	public Customer(Long id, String firstName, String surname) {
+	public Driver(Long id, String firstName, String surname) {
 		this.setId(id);
 		this.setFirstName(firstName);
 		this.setSurname(surname);
@@ -56,10 +56,10 @@ public class Customer {
 	public boolean equals(Object o) {
 		if (o == this)
 			return true;
-		if (!(o instanceof Customer)) {
+		if (!(o instanceof Driver)) {
 			return false;
 		}
-		Customer customer = (Customer) o;
+		Driver customer = (Driver) o;
 		return Objects.equals(id, customer.id) && Objects.equals(firstName, customer.firstName)
 				&& Objects.equals(surname, customer.surname);
 	}

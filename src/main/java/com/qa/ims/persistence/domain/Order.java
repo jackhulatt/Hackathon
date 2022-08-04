@@ -1,6 +1,5 @@
 package com.qa.ims.persistence.domain;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Order {
@@ -9,7 +8,6 @@ public class Order {
     private long customerId;
     private int quantity;
     private long itemId;
-    private List<Item> items;
 
     public Order() {
 
@@ -44,12 +42,6 @@ public class Order {
         this.customerId = customerId;
         this.quantity = quantity;
         this.itemId = itemId;
-    }
-
-    public Order(long orderId, long customerId, List<Item> items) {
-        this.orderId = orderId;
-        this.customerId = customerId;
-        this.items = items;
     }
 
     public long getOrderId() {
@@ -92,13 +84,6 @@ public class Order {
         this.itemId = itemId;
     }
 
-    public List<Item> getItems() {
-        return this.items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -108,25 +93,24 @@ public class Order {
             return false;
         }
         Order order = (Order) o;
-        return orderId == order.orderId && totalAmount == order.totalAmount && customerId == order.customerId
-                && quantity == order.quantity && itemId == order.itemId && Objects.equals(items, order.items);
+        return orderId == order.orderId && totalAmount == order.totalAmount && customerId == order.customerId && quantity == order.quantity && itemId == order.itemId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, totalAmount, customerId, quantity, itemId, items);
+        return Objects.hash(orderId, totalAmount, customerId, quantity, itemId);
     }
 
     @Override
     public String toString() {
         return "{" +
-                " orderId='" + getOrderId() + "'" +
-                ", totalAmount='" + getTotalAmount() + "'" +
-                ", customerId='" + getCustomerId() + "'" +
-                ", quantity='" + getQuantity() + "'" +
-                ", itemId='" + getItemId() + "'" +
-                ", items='" + getItems() + "'" +
-                "}";
+            " orderId='" + getOrderId() + "'" +
+            ", totalAmount='" + getTotalAmount() + "'" +
+            ", customerId='" + getCustomerId() + "'" +
+            ", quantity='" + getQuantity() + "'" +
+            ", itemId='" + getItemId() + "'" +
+            "}";
     }
+
 
 }

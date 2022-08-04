@@ -5,11 +5,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
-import com.qa.ims.controller.CustomerController;
-import com.qa.ims.controller.ItemController;
+import com.qa.ims.controller.DriverController;
+
 import com.qa.ims.controller.OrderController;
-import com.qa.ims.persistence.dao.CustomerDAO;
-import com.qa.ims.persistence.dao.ItemDAO;
+import com.qa.ims.persistence.dao.DriverDAO;
+
 import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
@@ -19,17 +19,15 @@ public class IMS {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	private final CustomerController customers;
-	private final ItemController items;
+	private final DriverController customers;
+	
 	private final OrderController orders;
 	private final Utils utils;
 
 	public IMS() {
 		this.utils = new Utils();
-		final CustomerDAO custDAO = new CustomerDAO();
-		this.customers = new CustomerController(custDAO, utils);
-		final ItemDAO iteDAO = new ItemDAO();
-		this.items = new ItemController(iteDAO, utils);
+		final DriverDAO custDAO = new DriverDAO();
+		this.customers = new DriverController(custDAO, utils);
 		final OrderDAO ordDAO = new OrderDAO();
 		this.orders = new OrderController(ordDAO, utils);
 	}
@@ -60,7 +58,7 @@ public class IMS {
 					active = this.customers;
 					break;
 				case ITEM:
-					active = this.items;
+					
 					break;
 				case ORDER:
 					active = this.orders;

@@ -5,22 +5,22 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.dao.CustomerDAO;
-import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.dao.DriverDAO;
+import com.qa.ims.persistence.domain.Driver;
 import com.qa.ims.utils.Utils;
 
 /**
  * Takes in customer details for CRUD functionality
  *
  */
-public class CustomerController implements CrudController<Customer> {
+public class DriverController implements CrudController<Driver> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	private CustomerDAO customerDAO;
+	private DriverDAO customerDAO;
 	private Utils utils;
 
-	public CustomerController(CustomerDAO customerDAO, Utils utils) {
+	public DriverController(DriverDAO customerDAO, Utils utils) {
 		super();
 		this.customerDAO = customerDAO;
 		this.utils = utils;
@@ -30,9 +30,9 @@ public class CustomerController implements CrudController<Customer> {
 	 * Reads all customers to the logger
 	 */
 	@Override
-	public List<Customer> readAll() {
-		List<Customer> customers = customerDAO.readAll();
-		for (Customer customer : customers) {
+	public List<Driver> readAll() {
+		List<Driver> customers = customerDAO.readAll();
+		for (Driver customer : customers) {
 			LOGGER.info(customer);
 		}
 		return customers;
@@ -42,12 +42,12 @@ public class CustomerController implements CrudController<Customer> {
 	 * Creates a customer by taking in user input
 	 */
 	@Override
-	public Customer create() {
+	public Driver create() {
 		LOGGER.info("Please enter a first name");
 		String firstName = utils.getString();
 		LOGGER.info("Please enter a surname");
 		String surname = utils.getString();
-		Customer customer = customerDAO.create(new Customer(firstName, surname));
+		Driver customer = customerDAO.create(new Driver(firstName, surname));
 		LOGGER.info("Customer created");
 		return customer;
 	}
@@ -56,14 +56,14 @@ public class CustomerController implements CrudController<Customer> {
 	 * Updates an existing customer by taking in user input
 	 */
 	@Override
-	public Customer update() {
+	public Driver update() {
 		LOGGER.info("Please enter the id of the customer you would like to update");
 		Long id = utils.getLong();
 		LOGGER.info("Please enter a first name");
 		String firstName = utils.getString();
 		LOGGER.info("Please enter a surname");
 		String surname = utils.getString();
-		Customer customer = customerDAO.update(new Customer(id, firstName, surname));
+		Driver customer = customerDAO.update(new Driver(id, firstName, surname));
 		LOGGER.info("Customer Updated");
 		return customer;
 	}
