@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 
-public class gui_login implements ActionListener {
+public class staff_login implements ActionListener {
     private static JLabel userLabel;
     private static JTextField userText;
     private static JLabel passwordLabel;
@@ -22,22 +22,22 @@ public class gui_login implements ActionListener {
 
         panel.setLayout(null);
 
-        userLabel = new JLabel("User");
-        userLabel.setBounds(10, 20, 80, 25);
+        userLabel = new JLabel("Enter your name:");
+        userLabel.setBounds(10, 20, 100, 25);
         panel.add(userLabel);
         userText = new JTextField(20);
-        userText.setBounds(100, 20, 165, 25);
+        userText.setBounds(150, 20, 165, 25);
         panel.add(userText);
-        passwordLabel = new JLabel("Password");
-        passwordLabel.setBounds(10, 50, 80, 25);
+        passwordLabel = new JLabel("Enter your password:");
+        passwordLabel.setBounds(10, 50, 130, 25);
         panel.add(passwordLabel);
         passwordText = new JPasswordField();
-        passwordText.setBounds(100, 50, 165, 25);
+        passwordText.setBounds(150, 50, 165, 25);
         panel.add(passwordText);
 
         button = new JButton("Login");
         button.setBounds(10, 80, 80, 25);
-        button.addActionListener(new gui_login());
+        button.addActionListener(new staff_login());
         {
 
             panel.add(button);
@@ -53,11 +53,7 @@ public class gui_login implements ActionListener {
             frame.setVisible(true);
 
         }
-        button = new JButton("Staff");
-        button.setBounds(100, 80, 80, 25);
-        {
-            panel.add(button);
-        }
+
     }
 
     @Override
@@ -65,7 +61,7 @@ public class gui_login implements ActionListener {
         String user = userText.getText();
         String password = passwordText.getText();
         System.out.println(user + ", " + password);
-        if(user.equals("Admin") && password.equals("Admin")){
+        if(user.equals("Staff") && password.equals("Staff")){
             success.setText("Login successful");
 
         } else {
