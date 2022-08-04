@@ -53,6 +53,11 @@ public class gui_login implements ActionListener {
             frame.setVisible(true);
 
         }
+        button = new JButton("Staff");
+        button.setBounds(100, 80, 80, 25);
+        {
+            panel.add(button);
+        }
     }
 
     @Override
