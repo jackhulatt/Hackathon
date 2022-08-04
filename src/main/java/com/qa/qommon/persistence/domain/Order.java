@@ -1,4 +1,4 @@
-package com.qa.ims.persistence.domain;
+package com.qa.qommon.persistence.domain;
 
 import java.util.Objects;
 

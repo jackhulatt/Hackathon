@@ -1,4 +1,4 @@
-package com.qa.ims.controller;
+package com.qa.qommon.controller;
 
 import java.util.List;
 

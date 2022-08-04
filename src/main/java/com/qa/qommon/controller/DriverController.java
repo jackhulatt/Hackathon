@@ -1,13 +1,13 @@
-package com.qa.ims.controller;
+package com.qa.qommon.controller;
 
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.dao.DriverDAO;
-import com.qa.ims.persistence.domain.Driver;
-import com.qa.ims.utils.Utils;
+import com.qa.qommon.persistence.dao.DriverDAO;
+import com.qa.qommon.persistence.domain.Driver;
+import com.qa.qommon.utils.Utils;
 
 /**
  * Takes in customer details for CRUD functionality
@@ -17,12 +17,12 @@ public class DriverController implements CrudController<Driver> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	private DriverDAO customerDAO;
+	private DriverDAO driverDAO;
 	private Utils utils;
 
-	public DriverController(DriverDAO customerDAO, Utils utils) {
+	public DriverController(DriverDAO driverDAO, Utils utils) {
 		super();
-		this.customerDAO = customerDAO;
+		this.driverDAO = driverDAO;
 		this.utils = utils;
 	}
 
@@ -31,11 +31,11 @@ public class DriverController implements CrudController<Driver> {
 	 */
 	@Override
 	public List<Driver> readAll() {
-		List<Driver> customers = customerDAO.readAll();
-		for (Driver customer : customers) {
-			LOGGER.info(customer);
+		List<Driver> drivers = driverDAO.readAll();
+		for (Driver driver : drivers) {
+			LOGGER.info(driver);
 		}
-		return customers;
+		return drivers;
 	}
 
 	/**
@@ -47,9 +47,11 @@ public class DriverController implements CrudController<Driver> {
 		String firstName = utils.getString();
 		LOGGER.info("Please enter a surname");
 		String surname = utils.getString();
-		Driver customer = customerDAO.create(new Driver(firstName, surname));
-		LOGGER.info("Customer created");
-		return customer;
+		LOGGER.info("Please enter the vehicle registration");
+		String vehicleReg = utils.getString();
+		Driver driver = driverDAO.create(new Driver(firstName, surname, vehicleReg));
+		LOGGER.info("Driver created");
+		return driver;
 	}
 
 	/**
@@ -57,15 +59,17 @@ public class DriverController implements CrudController<Driver> {
 	 */
 	@Override
 	public Driver update() {
-		LOGGER.info("Please enter the id of the customer you would like to update");
+		LOGGER.info("Please enter the id of the driver you would like to update");
 		Long id = utils.getLong();
 		LOGGER.info("Please enter a first name");
 		String firstName = utils.getString();
 		LOGGER.info("Please enter a surname");
 		String surname = utils.getString();
-		Driver customer = customerDAO.update(new Driver(id, firstName, surname));
-		LOGGER.info("Customer Updated");
-		return customer;
+		LOGGER.info("Please enter the vehicle reg");
+		String vehicleReg = utils.getString();
+		Driver driver = driverDAO.update(new Driver(id, firstName, surname, vehicleReg));
+		LOGGER.info("driver Updated");
+		return driver;
 	}
 
 	/**
@@ -75,9 +79,9 @@ public class DriverController implements CrudController<Driver> {
 	 */
 	@Override
 	public int delete() {
-		LOGGER.info("Please enter the id of the customer you would like to delete");
+		LOGGER.info("Please enter the id of the driver you would like to delete");
 		Long id = utils.getLong();
-		return customerDAO.delete(id);
+		return driverDAO.delete(id);
 	}
 
 }
