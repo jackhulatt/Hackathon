@@ -1,3 +1,5 @@
+package com.qa.qommon;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,7 +61,6 @@ public class gui_login implements ActionListener {
             panel.add(button);
         }
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String user = userText.getText();
@@ -72,6 +73,4 @@ public class gui_login implements ActionListener {
             fail.setText("Invalid log in");
         }
     }
-
-
 }
