@@ -1,10 +1,14 @@
-# Inventory Management System(IMS) Project 
+# Qommon Management System(IMS) Project 
 
-This is a project for the QA Hackathon event to create an operations system for a logistics and transport company 
+This is a project for the QA Hackathon event to create an operations system for a logistics and transport company. 
+
+## Product Design
+
+Fluid was used to provide a prototype demonstration of the Minimum Viable Product to show transport client and judges the end solution.
 
 ## Getting Started
 
-To get this project up and running you will need to clone down the Hackathon repository master branch to your system and open it in your preferred IDE
+To get this project up and running you will need to clone down the Hackathon repository master branch to your system and open it in your preferred IDE.
 
 ### Prerequisites
 
